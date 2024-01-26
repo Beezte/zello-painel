@@ -1,5 +1,5 @@
 <?php
-include '../php/config-short.php';
+include '../php/config-short-api.php';
 include '../php/verfica_autenticacao.php';
 
 $sql = "SELECT * FROM links ORDER BY id ASC";
@@ -95,12 +95,12 @@ $result = $conn->query($sql);
     <table class="table table-striped table-hover table-bordered table-responsive-lg">
         <thead class="table-light text-center">
         <tr>
-            <th>ID</th>
-            <th>CRIADOR(A)</th>
-            <th>MATRICULA</th>
-            <th>LINK FINAL</th>
-            <th>LINK CURTO</th>
-            <th>AÇÕES</th>
+            <th>Id</th>
+            <th>Criado por</th>
+            <th>Matricula</th>
+            <th>Url de destino</th>
+            <th>Url curta</th>
+            <th>Ações</th>
         </tr>
         </thead>
         <tbody class="text-center">
