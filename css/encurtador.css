@@ -73,9 +73,23 @@
 
 html, body{
     height: 100%;
+    margin-bottom: 50px !important;
 }
 
 .form-container{
     max-width: 420px;
     padding: 1rem;
+}
+.testestestes{
+    max-width: 1200px;
+}
+.banner-warning{
+    background: hsla(154, 100%, 76%, 1); /* Fallback para navegadores que não suportam gradientes */
+    background: linear-gradient(90deg, hsla(154, 100%, 76%, 1) 0%, hsla(234, 100%, 83%, 1) 50%, hsla(288, 100%, 81%, 1) 100%);
+    color: #212529; /* Texto preto */
+    height: 35px; /* Altura do banner */
+    width: 100%; /* Largura total */
+    text-align: center; /* Centraliza o texto */
+    line-height: 25px; /* Centraliza verticalmente o texto */
+    font-size: 16px; /* Tamanho da fonte */
 }

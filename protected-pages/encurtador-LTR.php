@@ -2,21 +2,11 @@
 include '../php/config-short-api.php';
 include '../php/verfica_autenticacao.php';
 
-$pagina = (isset($_GET['pagina'])) ? $_GET['pagina'] : 1;
 $sql = "SELECT * FROM links ORDER BY id ASC";
-$result = $conn->query($sql);
-$total_links = mysqli_num_rows($result);
-$quantidade_pg = 10;
-$num_pagina = ceil($total_links/$quantidade_pg);
-$inicio = ($quantidade_pg*$pagina)-$quantidade_pg;
-
-$sql = "SELECT * FROM links ORDER BY id ASC LIMIT $inicio, $quantidade_pg";
-$result = $conn->query($sql);
-$total_links = mysqli_num_rows($result);
-
-
 $matricula = $_SESSION['MATRICULA'];
 $name = "SELECT NOME FROM funcionarios_info WHERE MATRICULA = ?";
+$result = $conn->query($sql);
+
 $stmt = $conn->prepare($name);
 $stmt->bind_param("s", $matricula);
 $stmt->execute();
@@ -33,14 +23,10 @@ $nome = $funcionario['NOME'];
     <title>Zlo Admin - Home</title>
     <link rel="stylesheet" href="../css/css/bootstrap.css">
     <link rel="stylesheet" href="../css/encurtador.css">
-    <script src="https://kit.fontawesome.com/9cdb7b0b74.js" crossorigin="anonymous"></script>
     <script src="../css/js/bootstrap.js"></script>
     <link rel="icon" type="image/x-icon" href="../images/favicon-zello.png">
 </head>
 <body>
-<div class="banner-warning">
-    <p><strong><i class="fa-solid fa-life-ring"></i> O painel está em constante atualização, em caso de erro, contate a equipe de Insfraestrutura e Tecnologia</strong></p>
-</div>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
         <a class="navbar-brand me-auto" href="#">Zello Painel</a>
@@ -87,7 +73,6 @@ $nome = $funcionario['NOME'];
 <header class=" py-5 header-cor-custom">
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-light"> <!-- muda o fundo do texto -->
-            <span class="badge text-bg-warning">Nova feature 1.3</span>
             <h1 class="display-3 fw-bolder">Encurtador</h1>
             <p class="h4 fw-normal text-white mb-0">Use esse sistema para reduzir links oficiais</p>
         </div>
@@ -124,76 +109,36 @@ $nome = $funcionario['NOME'];
     </main>
 </section>
 
-
-<div class="card testestestes mx-auto ">
-    <div class="card-body">
-        <div class="container-xxl">
-            <h1 class="text-center pb-4">Links criados</h1>
-            <table class="table table-striped table-hover table-responsive-sm table-bordered margin-fix">
-                <thead class="table-light text-center">
-                <tr>
-                    <th>Id</th>
-                    <th>Criador(a)</th>
-                    <th>Matricula</th>
-                    <th>Url de destino</th>
-                    <th>Url curta</th>
-                    <th>Ações</th>
-                </tr>
-                </thead>
-                <tbody class="text-center">
-                <?php
-                while ($short_data = mysqli_fetch_assoc($result)){
-                    echo "<tr>";
-                    echo "<td>".$short_data['id']."</td>";
-                    echo "<td>".$short_data['nome']."</td>";
-                    echo "<td>".$short_data['matricula']."</td>";
-                    echo "<td> Indisponível temporariamente</td>";
-//                echo "<td>".$short_data['original_url']."</td>";
-                    echo "<td><a href='http://localhost:5000/" . $short_data['custom_url'] . "'> http://localhost:5000/" . $short_data['custom_url'] . "</a></td>";
-                    echo "<td><button class='btn btn-success mx-lg-1' onclick='copyToClipboard(\"http://localhost:5000/" . $short_data['custom_url'] . "\")'>Copiar</button>";
+<div class="container-lg my-auto">
+    <h1 class="text-center pb-4">Links criados</h1>
+    <table class="table table-striped table-hover table-bordered table-responsive-lg margin-fix">
+        <thead class="table-light text-center">
+        <tr>
+            <th>Id</th>
+            <th>Criador(a)</th>
+            <th>Matricula</th>
+            <th>Url de destino</th>
+            <th>Url curta</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody class="text-center">
+        <?php
+            while ($short_data = mysqli_fetch_assoc($result)){
+                echo "<tr>";
+                echo "<td>".$short_data['id']."</td>";
+                echo "<td>".$short_data['nome']."</td>";
+                echo "<td>".$short_data['matricula']."</td>";
+                echo "<td>".$short_data['original_url']."</td>";
+                echo "<td><a href='http://localhost:5000/" . $short_data['custom_url'] . "'> http://localhost:5000/" . $short_data['custom_url'] . "</a></td>";
+                echo "<td><button class='btn btn-success mx-lg-1' onclick='copyToClipboard(\"http://localhost:5000/" . $short_data['custom_url'] . "\")'>Copiar</button>";
                     echo "<button class='btn btn-warning mx-lg-1' onclick='copyToClipboard(\"http://localhost:5000/" . $short_data['custom_url'] . "\")'>Editar</button>";
                     echo "<button class='btn btn-danger mx-lg-1' onclick='copyToClipboard(\"http://localhost:5000/" . $short_data['custom_url'] . "\")'>Deletar</button>";
-                    echo "</tr>";
-                }
-                ?>
-                </tbody>
-            </table>
-        </div>
-
-        <?php
-        $pagina_anterior = $pagina - 1;
-        $pagina_posterior = $pagina + 1;
+                echo "</tr>";
+            }
         ?>
-
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                <li class="page-item">
-                    <?php
-                    if ($pagina_anterior != 0){
-                        echo "<a class='page-link' href='encurtador.php?pagina=$pagina_anterior'>Anterior</a>";
-                    }else{
-                        echo "<a class='page-link disabled' href='#'>Sem pagina anterior</a>";
-                    }
-                    ?>
-                </li>
-                <?php
-                for($i = 1; $i < $num_pagina + 1; $i++) {
-                    echo "<li class='page-item'><a class='page-link' href='encurtador.php?pagina=$i'>$i</a></li>";
-                }
-                ?>
-                <li class="page-item">
-                    <?php
-                    if ($pagina_posterior <= $num_pagina){
-                        echo "<a class='page-link' href='encurtador.php?pagina=$pagina_posterior'>Próxima</a>";
-                    }else{
-                        echo "<a class='page-link disabled' href='#'>Fim da lista</a>";
-                    }
-                    ?>
-                </li>
-            </ul>
-        </nav>
-
-    </div>
+        </tbody>
+    </table>
 </div>
 
 <header class=" py-5 bg-body-tertiary">

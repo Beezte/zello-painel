@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', function () {
         encurtarCopiarButton.addEventListener('click', function (event) {
             event.preventDefault();
 
+            const matriculashort = document.getElementById('matricula-short').value;
+            const nomeshort = document.getElementById('nome-short').value;
+
             const urlInput = document.getElementById('url-destino').value;
             const customUrlInput = document.getElementById('url-custom').value;
 
@@ -13,7 +16,9 @@ document.addEventListener('DOMContentLoaded', function () {
             // Construa o objeto de dados a ser enviado na requisição
             const data = {
                 url: urlInput,
-                custom_url: customUrlInput || undefined  // Se customUrlInput estiver vazio, não inclua no objeto
+                custom_url: customUrlInput || undefined,  // Se customUrlInput estiver vazio, não inclua no objeto
+                matricula: matriculashort,
+                nome: nomeshort
             };
 
             // Faça a requisição POST para a API
@@ -62,88 +67,16 @@ function copyToClipboard(text) {
     alert("Link copiado para a área de transferência!");
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    var copyButtons = document.querySelectorAll('.copy-button');
-
-    copyButtons.forEach(function(button) {
-        button.addEventListener('click', function() {
-            var linkToCopy = this.getAttribute('data-link');
-            copyToClipboard(linkToCopy);
-        });
-    });
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// document.addEventListener('DOMContentLoaded', function () {
-//     const encurtarCopiarButton = document.getElementById('encurtarCopiarButton');
+// document.addEventListener("DOMContentLoaded", function() {
+//     var copyButtons = document.querySelectorAll('.copy-button');
 //
-//     if (encurtarCopiarButton) {
-//         encurtarCopiarButton.addEventListener('click', function (event) {
-//             event.preventDefault();
-//
-//             const urlInput = document.getElementById('url-destino').value;
-//             const customUrlInput = document.getElementById('url-custom').value;
-//
-//             const apiUrl = 'http://localhost:5000/encurtar';
-//
-//             // Construa o objeto de dados a ser enviado na requisição
-//             const data = {
-//                 url: urlInput,
-//                 custom_url: customUrlInput || undefined  // Se customUrlInput estiver vazio, não inclua no objeto
-//             };
-//
-//             // Faça a requisição POST para a API
-//             fetch(apiUrl, {
-//                 method: 'POST',
-//                 headers: {
-//                     'Content-Type': 'application/json',
-//                 },
-//                 body: JSON.stringify(data),
-//             })
-//                 .then(response => response.json())
-//                 .then(data => {
-//                     // Copia o link encurtado para a área de transferência
-//                     const tempInput = document.createElement('input');
-//                     tempInput.value = data.short_url;
-//                     document.body.appendChild(tempInput);
-//                     tempInput.select();
-//                     document.execCommand('copy');
-//                     document.body.removeChild(tempInput);
-//                     alert('Link copiado para a Área de Transferência!');
-//                 })
-//                 .catch(error => {
-//                     console.error('Erro ao encurtar o link:', error);
-//                     alert('Erro ao encurtar o link. Por favor, tente novamente.');
-//                 });
+//     copyButtons.forEach(function(button) {
+//         button.addEventListener('click', function() {
+//             var linkToCopy = this.getAttribute('data-link');
+//             copyToClipboard(linkToCopy);
 //         });
-//     }
+//     });
 // });
-
-
-
-
-
-
-
-
 
 
 
