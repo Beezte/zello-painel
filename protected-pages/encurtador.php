@@ -44,7 +44,6 @@ $nome = $funcionario['NOME'];
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
         <a class="navbar-brand me-auto" href="#">Zello Painel</a>
-        <!--                <img src="../images/logo-zello.svg" height="65" width="65" alt="">-->
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Zello Painel</h5>
@@ -62,7 +61,7 @@ $nome = $funcionario['NOME'];
                         <a class="nav-link mx-lg-2 active" href="encurtador.php">Encurtador</a>
                     </li>
                     <li class="nav-item"> <!--MUDEI AQUI-->
-                        <a class="nav-link mx-lg-2" href="#">teste</a>
+                        <a class="nav-link mx-lg-2" href="newsletter.php">Newsletter</a>
                     </li>
                     <li class="nav-item"> <!--MUDEI AQUI-->
                         <a class="nav-link mx-lg-2" href="#">teste</a>

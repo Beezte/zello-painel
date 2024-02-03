@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@ckeditor/ckeditor5-theme-lark": "^41.0.0"
+  }
+}

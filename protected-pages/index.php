@@ -37,7 +37,7 @@ include '../php/verfica_autenticacao.php';
                             <a class="nav-link mx-lg-2" href="encurtador.php">Encurtador</a>
                         </li>
                         <li class="nav-item"> <!--MUDEI AQUI-->
-                            <a class="nav-link mx-lg-2" href="#">teste</a>
+                            <a class="nav-link mx-lg-2" href="newsletter.php">Newsletter</a>
                         </li>
                         <li class="nav-item"> <!--MUDEI AQUI-->
                             <a class="nav-link mx-lg-2" href="#">teste</a>
